@@ -29,7 +29,7 @@ SECRET_KEY = 'django-insecure-l^=$tn_0k@m_kqogqc#1it4h5vr@b@9l_h4$**n-n0n=%p@4cv
 DEBUG = True
 
 ALLOWED_HOSTS = ["*"]
-['https://boilagbe.onrender.com','https://*.127.0.0.1']
+CSRF_TRUSTED_ORIGINS = ['https://boilagbe.onrender.com','https://*.127.0.0.1']
 
 # Application definition
 
