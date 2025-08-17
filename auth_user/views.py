@@ -13,6 +13,9 @@ from django.core.mail import EmailMultiAlternatives
 from django.template.loader import render_to_string
 from rest_framework.authtoken.models import Token
 from rest_framework.permissions import IsAuthenticatedOrReadOnly,IsAuthenticated
+from rest_framework.authentication import  BasicAuthentication, TokenAuthentication
+
+
 
 class ShopUserViewSet(viewsets.ModelViewSet):
     queryset = ShopUserAccount.objects.all()
@@ -83,6 +86,7 @@ class UserLoginApiView(APIView):
 
             if user:
                 token, _ = Token.objects.get_or_create(user=user)
+                
                 print(token)
                 print(_)
                 login(request, user)
@@ -93,8 +97,10 @@ class UserLoginApiView(APIView):
 
 
 class UserLogoutView(APIView):
-
+    authentication_classes = [BasicAuthentication, TokenAuthentication]
+    permission_classes = [IsAuthenticatedOrReadOnly]
     def get(self, request):
+        print("Hello",request.user)
         request.user.auth_token.delete()
         logout(request)
-        return redirect("login")
+        return Response({"Success":True, "message":"Logout successfully"})

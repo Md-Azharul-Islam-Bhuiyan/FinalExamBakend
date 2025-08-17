@@ -10,6 +10,8 @@ class BookModel(models.Model):
     posted_user = models.ForeignKey(User, on_delete=models.CASCADE)
     quantity = models.IntegerField()
     price = models.IntegerField()
+    like = models.IntegerField(default=0) 
+    dislike = models.IntegerField(default=0)
     description = models.TextField()
     
     def __str__(self):
@@ -18,21 +20,33 @@ class BookModel(models.Model):
 
 class Comment(models.Model):
     book = models.ForeignKey(BookModel, on_delete=models.CASCADE)
-    name = models.CharField(max_length=30)
-    email = models.EmailField(null=True,blank=True)
+    user=models.OneToOneField(User, on_delete=models.CASCADE)
     body = models.TextField()
     created_on = models.DateTimeField(auto_now_add=True)
     
     def __str__(self):
-        return self.name
+        return self.book.book_name
     
 
-class BookOverView(models.Model):
+class LikePost(models.Model):
     book = models.ForeignKey(BookModel, on_delete=models.CASCADE, null=True, blank=True)
-    user = models.OneToOneField(User, on_delete=models.CASCADE, null=True, blank=True)
+    user = models.ForeignKey(User, on_delete=models.CASCADE, null=True, blank=True)
     like_post = models.IntegerField(default=0)
+
+    def __str__(self):
+        return f"{self.user.username} Liked {self.book.book_name}"
+    
+    class Meta:
+        verbose_name_plural = "LikePosts"
+    
+class DisLikePost(models.Model):
+    book = models.ForeignKey(BookModel, on_delete=models.CASCADE, null=True, blank=True)
+    user = models.ForeignKey(User, on_delete=models.CASCADE, null=True, blank=True)
     dislike_post = models.IntegerField(default=0)
 
     def __str__(self):
-        return self.user.username
+        return f"{self.user.username} DisLiked {self.book.book_name}"
+    
+    class Meta:
+        verbose_name_plural = "DisLikePosts"
     

@@ -1,5 +1,5 @@
 from rest_framework import serializers
-from .models import BookModel, Comment, BookOverView
+from .models import BookModel, Comment
 
 
 class BookSerializer(serializers.ModelSerializer):
@@ -11,10 +11,6 @@ class BookSerializer(serializers.ModelSerializer):
 class CommentSerializer(serializers.ModelSerializer):
      class Meta:
           model = Comment
-          fields = '__all__'
+          exclude = ['user']
 
 
-class BookOverViewSerializer(serializers.ModelSerializer):
-     class Meta:
-          model = BookOverView
-          fields = '__all__'

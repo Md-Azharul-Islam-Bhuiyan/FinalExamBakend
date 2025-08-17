@@ -7,7 +7,7 @@ router = DefaultRouter()
 
 router.register('list', views.BookViewSet)
 router.register('comment/list', views.CommentViewSet)
-router.register('postoverview/list', views.BookOverViewViewset)
+
 
 
 urlpatterns = [

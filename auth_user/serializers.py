@@ -24,6 +24,8 @@ class ShopUserRegistrationSerializers(serializers.ModelSerializer):
     postal_code = serializers.IntegerField()
     country = serializers.CharField(required=True)
     confirm_password = serializers.CharField(required=True)
+    
+
     class Meta:
         model = User
         fields = ['username', 'first_name', 'last_name', 'email', 'phone_no', 'birth_date', 'gender', 'profile_picture', 'street_address', 'city', 'postal_code', 'country','password', 'confirm_password']
